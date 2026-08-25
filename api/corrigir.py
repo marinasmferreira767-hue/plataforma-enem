@@ -1,15 +1,15 @@
-"""POST /api/corrigir — corrige uma redação pelas 5 competências do ENEM."""
+"""POST /api/corrigir — corrige uma redação pelas 5 competências do ENEM.
+
+Autocontido: sem imports de outros módulos do projeto.
+"""
 
 from __future__ import annotations
 
+import json
+import os
+import re
 import sys
-from pathlib import Path
-
-# Necessário para importar de api/_lib/ quando a Vercel executa este arquivo
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-from _lib.http import Handler
-from _lib.ia import chamar, extrair_json, ia_disponivel
+from http.server import BaseHTTPRequestHandler
 
 
 COMPETENCIAS = {
@@ -65,8 +65,44 @@ Responda EXATAMENTE neste JSON:
 Inclua 2 a 4 itens em "reescritas"."""
 
 
+def _chamar_ia(system: str, prompt: str, max_tokens: int = 3500) -> str:
+    """Chama Anthropic (prioridade) ou OpenAI."""
+    if os.environ.get("ANTHROPIC_API_KEY", "").strip():
+        from anthropic import Anthropic
+        cliente = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"].strip())
+        modelo = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-5")
+        resp = cliente.messages.create(
+            model=modelo, max_tokens=max_tokens, system=system,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
+
+    if os.environ.get("OPENAI_API_KEY", "").strip():
+        from openai import OpenAI
+        cliente = OpenAI(api_key=os.environ["OPENAI_API_KEY"].strip())
+        modelo = os.environ.get("OPENAI_MODEL", "gpt-4o")
+        resp = cliente.chat.completions.create(
+            model=modelo, max_tokens=max_tokens,
+            messages=[{"role": "system", "content": system},
+                      {"role": "user", "content": prompt}],
+        )
+        return resp.choices[0].message.content or ""
+
+    raise RuntimeError("Nenhuma chave de IA configurada.")
+
+
+def _extrair_json(bruto: str) -> dict:
+    limpo = re.sub(r"^```(?:json)?|```$", "", bruto.strip(), flags=re.MULTILINE).strip()
+    try:
+        return json.loads(limpo)
+    except json.JSONDecodeError:
+        ini, fim = limpo.find("{"), limpo.rfind("}")
+        if ini == -1 or fim == -1:
+            raise ValueError("A IA não devolveu um JSON válido.")
+        return json.loads(limpo[ini:fim + 1])
+
+
 def _normalizar_nota(v) -> int:
-    """Força qualquer valor devolvido pela IA para os 6 valores válidos do ENEM."""
     try:
         v = int(round(float(v)))
     except (TypeError, ValueError):
@@ -75,50 +111,68 @@ def _normalizar_nota(v) -> int:
     return min(VALORES_ENEM, key=lambda x: abs(x - v))
 
 
-class handler(Handler):
-    def processar_post(self, dados: dict) -> dict:
-        tema = str(dados.get("tema", "")).strip()
-        texto = str(dados.get("texto", "")).strip()
+class handler(BaseHTTPRequestHandler):
+    def _responder(self, status: int, corpo: dict) -> None:
+        payload = json.dumps(corpo, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(payload)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(payload)
 
-        if len(tema) < 5:
-            raise ValueError("Informe o tema da redação (mínimo 5 caracteres).")
-        if len(texto.split()) < 50:
-            raise ValueError("A redação precisa ter pelo menos 50 palavras para ser avaliada.")
-        if len(texto) > 15_000:
-            raise ValueError("Redação muito longa (máximo ~15.000 caracteres).")
-        if not ia_disponivel():
-            raise ValueError("Correção por IA indisponível: chave de API não configurada.")
+    def do_POST(self):  # noqa: N802
+        try:
+            tamanho = int(self.headers.get("Content-Length") or 0)
+            if tamanho > 200_000:
+                return self._responder(400, {"erro": "Payload muito grande."})
+            dados = json.loads(self.rfile.read(tamanho).decode("utf-8")) if tamanho else {}
 
-        bruto = chamar(SYSTEM, PROMPT.format(tema=tema, texto=texto), max_tokens=3500)
-        r = extrair_json(bruto)
+            tema = str(dados.get("tema", "")).strip()
+            texto = str(dados.get("texto", "")).strip()
 
-        # sanitiza cada competência
-        comps = []
-        notas = {}
-        for n in range(1, 6):
-            item = next((c for c in r.get("competencias", []) if int(c.get("numero", 0)) == n), {})
-            nota = _normalizar_nota(item.get("nota", 0))
-            notas[n] = nota
-            comps.append({
-                "numero": n,
-                "titulo": COMPETENCIAS[n],
-                "nota": nota,
-                "comentario": str(item.get("comentario", "—")).strip(),
+            if len(tema) < 5:
+                return self._responder(400, {"erro": "Informe o tema da redação (mínimo 5 caracteres)."})
+            if len(texto.split()) < 50:
+                return self._responder(400, {"erro": "A redação precisa ter pelo menos 50 palavras para ser avaliada."})
+            if len(texto) > 15_000:
+                return self._responder(400, {"erro": "Redação muito longa (máximo ~15.000 caracteres)."})
+
+            bruto = _chamar_ia(SYSTEM, PROMPT.format(tema=tema, texto=texto))
+            r = _extrair_json(bruto)
+
+            comps, notas = [], {}
+            for n in range(1, 6):
+                item = next((c for c in r.get("competencias", []) if int(c.get("numero", 0)) == n), {})
+                nota = _normalizar_nota(item.get("nota", 0))
+                notas[n] = nota
+                comps.append({
+                    "numero": n, "titulo": COMPETENCIAS[n], "nota": nota,
+                    "comentario": str(item.get("comentario", "—")).strip(),
+                })
+
+            return self._responder(200, {
+                "nota_final": sum(notas.values()),
+                "competencias": comps,
+                "resumo": str(r.get("resumo", "")).strip(),
+                "pontos_fortes": [str(p).strip() for p in (r.get("pontos_fortes") or [])[:5]],
+                "pontos_a_melhorar": [str(p).strip() for p in (r.get("pontos_a_melhorar") or [])[:5]],
+                "reescritas": [
+                    {"trecho_original": str(x.get("trecho_original", "")).strip(),
+                     "sugestao": str(x.get("sugestao", "")).strip(),
+                     "motivo": str(x.get("motivo", "")).strip()}
+                    for x in (r.get("reescritas") or [])[:4]
+                    if x.get("trecho_original") and x.get("sugestao")
+                ],
             })
 
-        return {
-            "nota_final": sum(notas.values()),
-            "competencias": comps,
-            "resumo": str(r.get("resumo", "")).strip(),
-            "pontos_fortes": [str(p).strip() for p in (r.get("pontos_fortes") or [])[:5]],
-            "pontos_a_melhorar": [str(p).strip() for p in (r.get("pontos_a_melhorar") or [])[:5]],
-            "reescritas": [
-                {
-                    "trecho_original": str(x.get("trecho_original", "")).strip(),
-                    "sugestao": str(x.get("sugestao", "")).strip(),
-                    "motivo": str(x.get("motivo", "")).strip(),
-                }
-                for x in (r.get("reescritas") or [])[:4]
-                if x.get("trecho_original") and x.get("sugestao")
-            ],
-        }
+        except RuntimeError as e:
+            self._responder(400, {"erro": str(e)})
+        except ValueError as e:
+            self._responder(400, {"erro": str(e)[:200]})
+        except Exception as e:  # noqa: BLE001
+            print(f"[ERRO corrigir] {type(e).__name__}: {e}", file=sys.stderr)
+            self._responder(500, {"erro": str(e)[:200]})
+
+    def log_message(self, format, *args):  # noqa: A002
+        return
