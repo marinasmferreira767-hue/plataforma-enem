@@ -1,14 +1,15 @@
-"""POST /api/gerar — gera questões inéditas no padrão ENEM."""
+"""POST /api/gerar — gera questões inéditas no padrão ENEM.
+
+Autocontido: sem imports de outros módulos do projeto.
+"""
 
 from __future__ import annotations
 
+import json
+import os
+import re
 import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-from _lib.http import Handler
-from _lib.ia import chamar, extrair_json, ia_disponivel
+from http.server import BaseHTTPRequestHandler
 
 
 AREAS = {
@@ -63,59 +64,111 @@ Responda EXATAMENTE neste JSON:
 }}"""
 
 
-class handler(Handler):
-    def processar_post(self, dados: dict) -> dict:
-        area = str(dados.get("area", "")).strip().lower()
-        topico = str(dados.get("topico", "")).strip()
-
-        try:
-            n = int(dados.get("quantidade", 3))
-        except (TypeError, ValueError):
-            n = 3
-        n = max(1, min(n, 5))
-
-        if area not in AREAS:
-            areas_validas = ", ".join(AREAS)
-            raise ValueError(f"Área inválida. Use uma de: {areas_validas}.")
-        if len(topico) < 3:
-            raise ValueError("Descreva melhor o tópico (mínimo 3 caracteres).")
-        if len(topico) > 200:
-            raise ValueError("Tópico muito longo (máximo 200 caracteres).")
-        if not ia_disponivel():
-            raise ValueError("Geração por IA indisponível: chave de API não configurada.")
-
-        bruto = chamar(
-            SYSTEM,
-            PROMPT.format(n=n, area=AREAS[area], topico=topico),
-            max_tokens=3200,
+def _chamar_ia(system: str, prompt: str, max_tokens: int = 3200) -> str:
+    if os.environ.get("ANTHROPIC_API_KEY", "").strip():
+        from anthropic import Anthropic
+        cliente = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"].strip())
+        modelo = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-5")
+        resp = cliente.messages.create(
+            model=modelo, max_tokens=max_tokens, system=system,
+            messages=[{"role": "user", "content": prompt}],
         )
-        r = extrair_json(bruto)
+        return "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
 
-        # valida e limpa
-        questoes = []
-        for i, q in enumerate((r.get("questoes") or [])[:n], start=1):
-            alts = q.get("alternativas") or {}
-            gab = str(q.get("gabarito", "")).strip().upper()[:1]
+    if os.environ.get("OPENAI_API_KEY", "").strip():
+        from openai import OpenAI
+        cliente = OpenAI(api_key=os.environ["OPENAI_API_KEY"].strip())
+        modelo = os.environ.get("OPENAI_MODEL", "gpt-4o")
+        resp = cliente.chat.completions.create(
+            model=modelo, max_tokens=max_tokens,
+            messages=[{"role": "system", "content": system},
+                      {"role": "user", "content": prompt}],
+        )
+        return resp.choices[0].message.content or ""
 
-            if gab not in "ABCDE":
-                continue
-            if not all(alts.get(letra) for letra in "ABCDE"):
-                continue
+    raise RuntimeError("Nenhuma chave de IA configurada.")
 
-            questoes.append({
-                "id": f"ia-{i}",
-                "area": area,
-                "topico": topico,
-                "enunciado": str(q.get("enunciado", "")).strip(),
-                "alternativas": [
-                    {"letra": letra, "texto": str(alts[letra]).strip()}
-                    for letra in "ABCDE"
-                ],
-                "gabarito": gab,
-                "explicacao": str(q.get("explicacao", "")).strip(),
-            })
 
-        if not questoes:
-            raise ValueError("A IA não devolveu questões válidas. Tente novamente.")
+def _extrair_json(bruto: str) -> dict:
+    limpo = re.sub(r"^```(?:json)?|```$", "", bruto.strip(), flags=re.MULTILINE).strip()
+    try:
+        return json.loads(limpo)
+    except json.JSONDecodeError:
+        ini, fim = limpo.find("{"), limpo.rfind("}")
+        if ini == -1 or fim == -1:
+            raise ValueError("A IA não devolveu um JSON válido.")
+        return json.loads(limpo[ini:fim + 1])
 
-        return {"questoes": questoes, "area": AREAS[area], "topico": topico}
+
+class handler(BaseHTTPRequestHandler):
+    def _responder(self, status: int, corpo: dict) -> None:
+        payload = json.dumps(corpo, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(payload)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(payload)
+
+    def do_POST(self):  # noqa: N802
+        try:
+            tamanho = int(self.headers.get("Content-Length") or 0)
+            if tamanho > 200_000:
+                return self._responder(400, {"erro": "Payload muito grande."})
+            dados = json.loads(self.rfile.read(tamanho).decode("utf-8")) if tamanho else {}
+
+            area = str(dados.get("area", "")).strip().lower()
+            topico = str(dados.get("topico", "")).strip()
+
+            try:
+                n = int(dados.get("quantidade", 3))
+            except (TypeError, ValueError):
+                n = 3
+            n = max(1, min(n, 5))
+
+            if area not in AREAS:
+                return self._responder(400, {"erro": f"Área inválida. Use uma de: {', '.join(AREAS)}."})
+            if len(topico) < 3:
+                return self._responder(400, {"erro": "Descreva melhor o tópico (mínimo 3 caracteres)."})
+            if len(topico) > 200:
+                return self._responder(400, {"erro": "Tópico muito longo (máximo 200 caracteres)."})
+
+            bruto = _chamar_ia(SYSTEM, PROMPT.format(n=n, area=AREAS[area], topico=topico))
+            r = _extrair_json(bruto)
+
+            questoes = []
+            for i, q in enumerate((r.get("questoes") or [])[:n], start=1):
+                alts = q.get("alternativas") or {}
+                gab = str(q.get("gabarito", "")).strip().upper()[:1]
+
+                if gab not in "ABCDE":
+                    continue
+                if not all(alts.get(letra) for letra in "ABCDE"):
+                    continue
+
+                questoes.append({
+                    "id": f"ia-{i}", "area": area, "topico": topico,
+                    "enunciado": str(q.get("enunciado", "")).strip(),
+                    "alternativas": [
+                        {"letra": letra, "texto": str(alts[letra]).strip()}
+                        for letra in "ABCDE"
+                    ],
+                    "gabarito": gab,
+                    "explicacao": str(q.get("explicacao", "")).strip(),
+                })
+
+            if not questoes:
+                return self._responder(400, {"erro": "A IA não devolveu questões válidas. Tente novamente."})
+
+            return self._responder(200, {"questoes": questoes, "area": AREAS[area], "topico": topico})
+
+        except RuntimeError as e:
+            self._responder(400, {"erro": str(e)})
+        except ValueError as e:
+            self._responder(400, {"erro": str(e)[:200]})
+        except Exception as e:  # noqa: BLE001
+            print(f"[ERRO gerar] {type(e).__name__}: {e}", file=sys.stderr)
+            self._responder(500, {"erro": str(e)[:200]})
+
+    def log_message(self, format, *args):  # noqa: A002
+        return
