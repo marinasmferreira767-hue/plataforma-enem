@@ -1,0 +1,4 @@
+# Duas dependências apenas — uma das duas basta em runtime.
+# Instale as duas para permitir alternar de provedor sem redeployar.
+anthropic>=0.40.0
+openai>=1.40.0

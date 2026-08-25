@@ -1,0 +1,962 @@
+[
+  {
+    "id": "mat-001",
+    "area": "matematica",
+    "topico": "Porcentagem e descontos sucessivos",
+    "enunciado": "Uma loja anuncia um televisor por R$ 2.400,00. Na semana da liquidação, oferece um desconto de 15% e, no pagamento à vista, um segundo desconto de 10% sobre o valor já reduzido. Qual é o valor final do televisor no pagamento à vista?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "R$ 1.800,00"
+      },
+      {
+        "letra": "B",
+        "texto": "R$ 1.836,00"
+      },
+      {
+        "letra": "C",
+        "texto": "R$ 1.900,00"
+      },
+      {
+        "letra": "D",
+        "texto": "R$ 1.960,00"
+      },
+      {
+        "letra": "E",
+        "texto": "R$ 2.040,00"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "Primeiro desconto: 2400 × 0,85 = 2040. Segundo desconto sobre o novo valor: 2040 × 0,90 = 1836. É um erro comum somar os descontos (25%) e calcular 2400 × 0,75 = 1800, que corresponde à alternativa A."
+  },
+  {
+    "id": "mat-002",
+    "area": "matematica",
+    "topico": "Volume de sólidos",
+    "enunciado": "Um reservatório cilíndrico tem 2 m de raio da base e 5 m de altura. Considerando π ≈ 3, qual é a capacidade aproximada desse reservatório, em litros?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "6 000 L"
+      },
+      {
+        "letra": "B",
+        "texto": "30 000 L"
+      },
+      {
+        "letra": "C",
+        "texto": "60 000 L"
+      },
+      {
+        "letra": "D",
+        "texto": "150 000 L"
+      },
+      {
+        "letra": "E",
+        "texto": "300 000 L"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "Volume do cilindro = π × r² × h = 3 × 4 × 5 = 60 m³. Como 1 m³ = 1000 L, o volume é 60 000 L. A alternativa E corresponde a esquecer que 1 m³ vale 1000 L (não 5000)."
+  },
+  {
+    "id": "mat-003",
+    "area": "matematica",
+    "topico": "Média aritmética e ponderada",
+    "enunciado": "A média das notas de 9 alunos em uma prova foi 6,0. Ao incluir a nota de um décimo aluno, a média subiu para 6,3. Qual foi a nota desse décimo aluno?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "6,3"
+      },
+      {
+        "letra": "B",
+        "texto": "7,5"
+      },
+      {
+        "letra": "C",
+        "texto": "8,0"
+      },
+      {
+        "letra": "D",
+        "texto": "9,0"
+      },
+      {
+        "letra": "E",
+        "texto": "10,0"
+      }
+    ],
+    "gabarito": "D",
+    "explicacao": "Soma inicial: 9 × 6,0 = 54. Nova soma: 10 × 6,3 = 63. A nota do décimo aluno é 63 − 54 = 9,0. Erros comuns: multiplicar a nova média por 9 em vez de 10, ou confundir a média por aluno com a nota individual."
+  },
+  {
+    "id": "mat-004",
+    "area": "matematica",
+    "topico": "Progressão aritmética",
+    "enunciado": "Um funcionário recebe um bônus mensal em progressão aritmética: R$ 200,00 no primeiro mês, R$ 250,00 no segundo, R$ 300,00 no terceiro, e assim sucessivamente. Qual será o valor total recebido em bônus ao final de 12 meses?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "R$ 3.300,00"
+      },
+      {
+        "letra": "B",
+        "texto": "R$ 3.900,00"
+      },
+      {
+        "letra": "C",
+        "texto": "R$ 4.500,00"
+      },
+      {
+        "letra": "D",
+        "texto": "R$ 5.100,00"
+      },
+      {
+        "letra": "E",
+        "texto": "R$ 5.700,00"
+      }
+    ],
+    "gabarito": "E",
+    "explicacao": "Termo 12 da PA: a₁₂ = 200 + 11 × 50 = 750. Soma da PA: S = (200 + 750) × 12 / 2 = 950 × 6 = R$ 5.700,00. Erros comuns: esquecer de dividir por 2 (dá 11.400), usar 11 termos em vez de 12, ou somar só os primeiros e últimos valores."
+  },
+  {
+    "id": "mat-005",
+    "area": "matematica",
+    "topico": "Probabilidade condicional",
+    "enunciado": "Em uma urna há 5 bolas vermelhas e 3 bolas azuis. Duas bolas são retiradas sucessivamente, sem reposição. Qual a probabilidade de ambas serem vermelhas?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "5/16"
+      },
+      {
+        "letra": "B",
+        "texto": "10/28"
+      },
+      {
+        "letra": "C",
+        "texto": "5/14"
+      },
+      {
+        "letra": "D",
+        "texto": "25/64"
+      },
+      {
+        "letra": "E",
+        "texto": "3/8"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "Primeira retirada: 5/8 (5 vermelhas em 8 bolas). Segunda retirada, sem reposição: 4/7 (restam 4 vermelhas em 7 bolas). Probabilidade conjunta: 5/8 × 4/7 = 20/56 = 5/14. A alternativa D representa o erro de tratar como retirada com reposição (5/8)²."
+  },
+  {
+    "id": "mat-006",
+    "area": "matematica",
+    "topico": "Função do 2º grau",
+    "enunciado": "A altura h(t), em metros, de uma bola lançada verticalmente para cima é dada por h(t) = -5t² + 20t, onde t é o tempo em segundos após o lançamento. Qual é a altura máxima atingida pela bola?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "10 m"
+      },
+      {
+        "letra": "B",
+        "texto": "15 m"
+      },
+      {
+        "letra": "C",
+        "texto": "20 m"
+      },
+      {
+        "letra": "D",
+        "texto": "25 m"
+      },
+      {
+        "letra": "E",
+        "texto": "40 m"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "A altura máxima corresponde ao vértice da parábola. t do vértice: -b/2a = -20/(-10) = 2 s. h(2) = -5(4) + 20(2) = -20 + 40 = 20 m. Erro comum: calcular h(1) ou h(4) confundindo com raízes/zeros da função."
+  },
+  {
+    "id": "mat-007",
+    "area": "matematica",
+    "topico": "Geometria: semelhança de triângulos",
+    "enunciado": "Um poste de 6 m projeta uma sombra de 4 m no chão. No mesmo instante, ao lado, uma pessoa projeta uma sombra de 1,2 m. Qual a altura da pessoa?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "1,50 m"
+      },
+      {
+        "letra": "B",
+        "texto": "1,60 m"
+      },
+      {
+        "letra": "C",
+        "texto": "1,70 m"
+      },
+      {
+        "letra": "D",
+        "texto": "1,80 m"
+      },
+      {
+        "letra": "E",
+        "texto": "2,00 m"
+      }
+    ],
+    "gabarito": "D",
+    "explicacao": "Por semelhança: altura_poste / sombra_poste = altura_pessoa / sombra_pessoa. Assim 6/4 = h/1,2, logo h = 6 × 1,2 / 4 = 1,80 m. Erros comuns: inverter a proporção ou usar subtração no lugar de razão."
+  },
+  {
+    "id": "mat-008",
+    "area": "matematica",
+    "topico": "Análise de gráficos",
+    "enunciado": "O consumo mensal de energia elétrica de uma família, em kWh, durante seis meses foi: janeiro 180, fevereiro 210, março 250, abril 240, maio 200, junho 190. Qual é o consumo médio mensal, em kWh, nesse período?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "195"
+      },
+      {
+        "letra": "B",
+        "texto": "210"
+      },
+      {
+        "letra": "C",
+        "texto": "215"
+      },
+      {
+        "letra": "D",
+        "texto": "220"
+      },
+      {
+        "letra": "E",
+        "texto": "225"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "Soma: 180+210+250+240+200+190 = 1270. Média: 1270/6 ≈ 211,67. Arredondando para o valor mais próximo entre as alternativas, temos 215. Note que esta é uma questão em que o candidato precisa escolher a resposta mais próxima quando a média exata não aparece."
+  },
+  {
+    "id": "nat-001",
+    "area": "natureza",
+    "topico": "Física — Cinemática e Dinâmica",
+    "enunciado": "Um corpo de 4 kg parte do repouso e atinge a velocidade de 12 m/s em 6 segundos, sob aceleração constante. Qual é a intensidade da força resultante sobre ele?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "2 N"
+      },
+      {
+        "letra": "B",
+        "texto": "4 N"
+      },
+      {
+        "letra": "C",
+        "texto": "8 N"
+      },
+      {
+        "letra": "D",
+        "texto": "12 N"
+      },
+      {
+        "letra": "E",
+        "texto": "48 N"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "Aceleração: a = Δv/Δt = 12/6 = 2 m/s². Pela 2ª Lei de Newton, F = m × a = 4 × 2 = 8 N. Erros comuns: usar F = m × v (dá 48 N, alternativa E) ou esquecer de calcular a aceleração antes."
+  },
+  {
+    "id": "nat-002",
+    "area": "natureza",
+    "topico": "Química — Estequiometria",
+    "enunciado": "Na reação de combustão completa do metano, CH₄ + 2 O₂ → CO₂ + 2 H₂O, quantos mols de água são produzidos a partir da queima de 4 mols de metano?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "1 mol"
+      },
+      {
+        "letra": "B",
+        "texto": "2 mols"
+      },
+      {
+        "letra": "C",
+        "texto": "4 mols"
+      },
+      {
+        "letra": "D",
+        "texto": "8 mols"
+      },
+      {
+        "letra": "E",
+        "texto": "16 mols"
+      }
+    ],
+    "gabarito": "D",
+    "explicacao": "Pela estequiometria da reação, 1 mol de CH₄ produz 2 mols de H₂O. Logo, 4 mols de CH₄ produzem 4 × 2 = 8 mols de H₂O. Erros comuns: usar a proporção 1:1 (alternativa C) ou multiplicar duas vezes (alternativa E)."
+  },
+  {
+    "id": "nat-003",
+    "area": "natureza",
+    "topico": "Biologia — Respiração celular",
+    "enunciado": "Nas células eucarióticas, a organela responsável pela respiração celular aeróbica, processo que produz a maior parte do ATP utilizado pela célula, é:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "O ribossomo"
+      },
+      {
+        "letra": "B",
+        "texto": "A mitocôndria"
+      },
+      {
+        "letra": "C",
+        "texto": "O lisossomo"
+      },
+      {
+        "letra": "D",
+        "texto": "O complexo golgiense"
+      },
+      {
+        "letra": "E",
+        "texto": "O retículo endoplasmático rugoso"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A mitocôndria é a organela onde ocorrem o ciclo de Krebs e a fosforilação oxidativa, produzindo a maior parte do ATP celular. Ribossomos sintetizam proteínas; lisossomos fazem digestão intracelular; complexo golgiense processa proteínas; RER sintetiza proteínas de secreção."
+  },
+  {
+    "id": "nat-004",
+    "area": "natureza",
+    "topico": "Química — Efeito estufa",
+    "enunciado": "O efeito estufa é um fenômeno natural essencial para manter a temperatura da Terra dentro de faixas compatíveis com a vida. Sua intensificação nas últimas décadas está associada principalmente ao aumento da concentração atmosférica de qual gás, oriundo majoritariamente da queima de combustíveis fósseis?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Gás nitrogênio (N₂)"
+      },
+      {
+        "letra": "B",
+        "texto": "Gás oxigênio (O₂)"
+      },
+      {
+        "letra": "C",
+        "texto": "Dióxido de carbono (CO₂)"
+      },
+      {
+        "letra": "D",
+        "texto": "Gás hélio (He)"
+      },
+      {
+        "letra": "E",
+        "texto": "Gás argônio (Ar)"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "O CO₂ é o principal gás de efeito estufa antropogênico, liberado em grande quantidade pela queima de carvão, petróleo e gás natural. N₂ e O₂ compõem a maior parte da atmosfera, mas não retêm calor infravermelho. He e Ar são gases nobres, quimicamente inertes, presentes em quantidades ínfimas."
+  },
+  {
+    "id": "nat-005",
+    "area": "natureza",
+    "topico": "Física — Ondas e som",
+    "enunciado": "Uma onda sonora tem frequência de 440 Hz e se propaga no ar com velocidade de 340 m/s. Qual é o comprimento aproximado dessa onda?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "0,29 m"
+      },
+      {
+        "letra": "B",
+        "texto": "0,77 m"
+      },
+      {
+        "letra": "C",
+        "texto": "1,29 m"
+      },
+      {
+        "letra": "D",
+        "texto": "440 m"
+      },
+      {
+        "letra": "E",
+        "texto": "780 m"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "Pela relação fundamental das ondas: v = λ × f, logo λ = v/f = 340/440 ≈ 0,77 m. Alternativa A vem de inverter (f/v). Alternativas D e E ignoram a operação e devolvem os dados."
+  },
+  {
+    "id": "nat-006",
+    "area": "natureza",
+    "topico": "Biologia — Ecologia",
+    "enunciado": "Em uma cadeia alimentar composta por capim → gafanhoto → sapo → cobra → gavião, o nível trófico ocupado pelo sapo é o de:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Produtor"
+      },
+      {
+        "letra": "B",
+        "texto": "Consumidor primário"
+      },
+      {
+        "letra": "C",
+        "texto": "Consumidor secundário"
+      },
+      {
+        "letra": "D",
+        "texto": "Consumidor terciário"
+      },
+      {
+        "letra": "E",
+        "texto": "Decompositor"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "O sapo come o gafanhoto (consumidor primário), portanto é consumidor secundário. Produtores são os autotróficos (capim); consumidores primários comem produtores; secundários comem primários; terciários comem secundários (a cobra, no caso)."
+  },
+  {
+    "id": "nat-007",
+    "area": "natureza",
+    "topico": "Química — Soluções e concentração",
+    "enunciado": "Foram dissolvidos 20 g de sal em água suficiente para completar 500 mL de solução. A concentração dessa solução, em g/L, é:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "0,04 g/L"
+      },
+      {
+        "letra": "B",
+        "texto": "4 g/L"
+      },
+      {
+        "letra": "C",
+        "texto": "10 g/L"
+      },
+      {
+        "letra": "D",
+        "texto": "20 g/L"
+      },
+      {
+        "letra": "E",
+        "texto": "40 g/L"
+      }
+    ],
+    "gabarito": "E",
+    "explicacao": "Concentração = massa/volume = 20 g / 0,5 L = 40 g/L. Erro comum: dividir por 500 sem converter mL em L (dá 0,04) ou usar direto a massa como resposta (20)."
+  },
+  {
+    "id": "nat-008",
+    "area": "natureza",
+    "topico": "Física — Termodinâmica",
+    "enunciado": "Uma quantidade de calor de 4.200 J é fornecida a 200 g de água inicialmente a 20 °C. Considerando o calor específico da água igual a 4,2 J/(g·°C), qual é a temperatura final da água?",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "22 °C"
+      },
+      {
+        "letra": "B",
+        "texto": "25 °C"
+      },
+      {
+        "letra": "C",
+        "texto": "30 °C"
+      },
+      {
+        "letra": "D",
+        "texto": "42 °C"
+      },
+      {
+        "letra": "E",
+        "texto": "50 °C"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "Q = m × c × ΔT → 4200 = 200 × 4,2 × ΔT → ΔT = 4200/840 = 5 °C. Temperatura final: 20 + 5 = 25 °C. Erros comuns: esquecer a temperatura inicial ou usar a massa em kg sem ajustar o calor específico."
+  },
+  {
+    "id": "hum-001",
+    "area": "humanas",
+    "topico": "História — Lei Áurea e pós-abolição",
+    "enunciado": "A Lei Áurea, assinada em 13 de maio de 1888, aboliu formalmente a escravidão no Brasil. Contudo, a ausência de políticas públicas de inclusão da população recém-libertada resultou principalmente em:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Distribuição ampla de terras aos ex-escravizados por parte do Estado"
+      },
+      {
+        "letra": "B",
+        "texto": "Acesso imediato à educação pública de qualidade para libertos"
+      },
+      {
+        "letra": "C",
+        "texto": "Marginalização social e econômica prolongada da população negra"
+      },
+      {
+        "letra": "D",
+        "texto": "Substituição do trabalho livre pelo trabalho compulsório indígena"
+      },
+      {
+        "letra": "E",
+        "texto": "Concessão automática de direitos políticos plenos aos libertos"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "A abolição não foi acompanhada de reforma agrária, políticas educacionais ou de inclusão econômica, o que levou à marginalização estrutural da população negra — herança que persiste em indicadores atuais. As demais alternativas descrevem cenários que não ocorreram."
+  },
+  {
+    "id": "hum-002",
+    "area": "humanas",
+    "topico": "Geografia — Urbanização brasileira",
+    "enunciado": "A urbanização acelerada das metrópoles brasileiras a partir da segunda metade do século XX gerou a chamada periferização da moradia. Esse processo é explicado sobretudo pela:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Redução do preço da terra nas áreas centrais"
+      },
+      {
+        "letra": "B",
+        "texto": "Especulação imobiliária que empurra a população de baixa renda para áreas distantes"
+      },
+      {
+        "letra": "C",
+        "texto": "Diminuição da migração campo-cidade no período"
+      },
+      {
+        "letra": "D",
+        "texto": "Política habitacional que priorizou o centro para famílias de baixa renda"
+      },
+      {
+        "letra": "E",
+        "texto": "Queda contínua da população urbana em relação à rural"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A especulação imobiliária eleva o preço da terra nas áreas centrais e bem infraestruturadas, forçando a população pobre a se estabelecer em áreas periféricas, muitas vezes sem saneamento, transporte ou serviços. As demais alternativas contradizem o fenômeno observado."
+  },
+  {
+    "id": "hum-003",
+    "area": "humanas",
+    "topico": "História — Revolução Industrial",
+    "enunciado": "A Revolução Industrial iniciada na Inglaterra no século XVIII transformou profundamente as relações de trabalho. Uma das principais mudanças foi:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "O fortalecimento das corporações de ofício medievais"
+      },
+      {
+        "letra": "B",
+        "texto": "A substituição da manufatura artesanal pela produção fabril assalariada"
+      },
+      {
+        "letra": "C",
+        "texto": "A eliminação da divisão do trabalho dentro das fábricas"
+      },
+      {
+        "letra": "D",
+        "texto": "A redução imediata da jornada de trabalho já em suas primeiras décadas"
+      },
+      {
+        "letra": "E",
+        "texto": "O fim da migração de trabalhadores rurais para as cidades"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A Revolução Industrial substituiu a produção artesanal pela fabril, criando o operariado assalariado e introduzindo a divisão intensiva do trabalho. As jornadas eram extenuantes (12 a 16 horas) e a migração rural-urbana se intensificou, não diminuiu."
+  },
+  {
+    "id": "hum-004",
+    "area": "humanas",
+    "topico": "Sociologia — Movimentos sociais",
+    "enunciado": "Movimentos sociais como o Movimento dos Trabalhadores Rurais Sem Terra (MST) e o movimento feminista atuam na sociedade brasileira contemporânea principalmente com o objetivo de:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Manter o status quo social vigente"
+      },
+      {
+        "letra": "B",
+        "texto": "Substituir integralmente o Estado democrático de direito"
+      },
+      {
+        "letra": "C",
+        "texto": "Reivindicar direitos e transformar estruturas de desigualdade"
+      },
+      {
+        "letra": "D",
+        "texto": "Restringir a participação política a grupos específicos"
+      },
+      {
+        "letra": "E",
+        "texto": "Impedir mudanças legislativas relacionadas a suas pautas"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "Movimentos sociais organizados atuam na esfera pública reivindicando direitos e questionando estruturas de desigualdade, ampliando a democracia. Não são contra o Estado democrático — pelo contrário, usam seus canais para pressionar por transformações."
+  },
+  {
+    "id": "hum-005",
+    "area": "humanas",
+    "topico": "Geografia — Globalização",
+    "enunciado": "O processo de globalização, intensificado a partir das últimas décadas do século XX, é caracterizado principalmente pela:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Redução da influência das empresas multinacionais no comércio mundial"
+      },
+      {
+        "letra": "B",
+        "texto": "Integração econômica, cultural e informacional entre países em escala planetária"
+      },
+      {
+        "letra": "C",
+        "texto": "Fortalecimento exclusivo das economias periféricas"
+      },
+      {
+        "letra": "D",
+        "texto": "Eliminação das desigualdades regionais dentro dos países"
+      },
+      {
+        "letra": "E",
+        "texto": "Retorno ao isolamento comercial dos Estados nacionais"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A globalização é definida pela integração acelerada de fluxos econômicos, culturais e informacionais entre países. As multinacionais foram protagonistas — não perderam influência —, e a globalização aprofundou (não eliminou) desigualdades regionais."
+  },
+  {
+    "id": "hum-006",
+    "area": "humanas",
+    "topico": "Filosofia — Contrato social",
+    "enunciado": "A teoria do contrato social, desenvolvida por pensadores iluministas como Rousseau, Locke e Hobbes, propõe que a legitimidade do poder político deriva:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Do direito divino dos reis"
+      },
+      {
+        "letra": "B",
+        "texto": "Da força militar do soberano"
+      },
+      {
+        "letra": "C",
+        "texto": "De um acordo tácito ou explícito entre os indivíduos e a autoridade"
+      },
+      {
+        "letra": "D",
+        "texto": "Da herança dinástica"
+      },
+      {
+        "letra": "E",
+        "texto": "De critérios religiosos exclusivos"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "O contratualismo funda a legitimidade do poder político em um pacto entre os indivíduos e a autoridade, rompendo com concepções teológicas ou tradicionais de poder. As demais alternativas descrevem justificativas pré-modernas que os contratualistas justamente vieram substituir."
+  },
+  {
+    "id": "hum-007",
+    "area": "humanas",
+    "topico": "História — Era Vargas",
+    "enunciado": "O Estado Novo (1937-1945), instaurado por Getúlio Vargas, caracterizou-se politicamente por:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Ampliação da liberdade de imprensa e do pluripartidarismo"
+      },
+      {
+        "letra": "B",
+        "texto": "Centralização autoritária do poder e fechamento do Congresso"
+      },
+      {
+        "letra": "C",
+        "texto": "Descentralização administrativa e fortalecimento dos estados"
+      },
+      {
+        "letra": "D",
+        "texto": "Retorno ao modelo político da República Velha"
+      },
+      {
+        "letra": "E",
+        "texto": "Adoção do sistema parlamentarista de governo"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "O Estado Novo foi uma ditadura civil de forte centralização: Vargas fechou o Congresso, dissolveu partidos, outorgou uma nova Constituição (a Polaca) e censurou a imprensa via DIP. As demais alternativas descrevem o oposto do que ocorreu."
+  },
+  {
+    "id": "hum-008",
+    "area": "humanas",
+    "topico": "Sociologia — Indústria cultural",
+    "enunciado": "O conceito de 'indústria cultural', formulado pelos teóricos da Escola de Frankfurt (Adorno e Horkheimer), refere-se principalmente à:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Produção artesanal de bens culturais em pequena escala"
+      },
+      {
+        "letra": "B",
+        "texto": "Produção em massa de bens culturais padronizados voltados ao consumo"
+      },
+      {
+        "letra": "C",
+        "texto": "Preservação de tradições populares regionais"
+      },
+      {
+        "letra": "D",
+        "texto": "Cultura erudita restrita a pequenos grupos"
+      },
+      {
+        "letra": "E",
+        "texto": "Educação formal ministrada em escolas públicas"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A indústria cultural, para Adorno e Horkheimer, é o sistema que produz cultura em escala industrial, padronizando gostos e transformando arte em mercadoria de consumo massivo, com efeito de alienação. As demais alternativas descrevem o oposto do fenômeno criticado."
+  },
+  {
+    "id": "lin-001",
+    "area": "linguagens",
+    "topico": "Gramática — Concordância verbal",
+    "enunciado": "Considere a frase: 'Fazem cinco anos que ele não visita a cidade.' Segundo a norma-padrão, essa construção contém um desvio porque:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "O verbo 'fazer', indicando tempo decorrido, é impessoal e deve ficar no singular"
+      },
+      {
+        "letra": "B",
+        "texto": "O sujeito da oração é 'cinco anos', o que exigiria o plural"
+      },
+      {
+        "letra": "C",
+        "texto": "O verbo deveria estar no futuro do pretérito"
+      },
+      {
+        "letra": "D",
+        "texto": "O verbo 'fazer' nunca admite flexão de número em português"
+      },
+      {
+        "letra": "E",
+        "texto": "A construção exige voz passiva sintética"
+      }
+    ],
+    "gabarito": "A",
+    "explicacao": "Quando 'fazer' indica tempo decorrido, é impessoal (não tem sujeito) e fica invariavelmente no singular: 'Faz cinco anos que...'. O mesmo vale para 'haver' no sentido de existir. A alternativa D é excessiva — o verbo se flexiona normalmente em outros usos."
+  },
+  {
+    "id": "lin-002",
+    "area": "linguagens",
+    "topico": "Funções da linguagem",
+    "enunciado": "Uma campanha publicitária de perfume usa a frase 'Compre agora e sinta a diferença.' A função da linguagem predominante nessa frase é a:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Referencial"
+      },
+      {
+        "letra": "B",
+        "texto": "Emotiva"
+      },
+      {
+        "letra": "C",
+        "texto": "Fática"
+      },
+      {
+        "letra": "D",
+        "texto": "Conativa (ou apelativa)"
+      },
+      {
+        "letra": "E",
+        "texto": "Metalinguística"
+      }
+    ],
+    "gabarito": "D",
+    "explicacao": "O uso do imperativo ('compre', 'sinta') com intenção de convencer e induzir uma ação é característico da função conativa, centrada no receptor. Referencial é informativa; emotiva foca no emissor; fática mantém o contato; metalinguística fala da própria linguagem."
+  },
+  {
+    "id": "lin-003",
+    "area": "linguagens",
+    "topico": "Literatura — Modernismo brasileiro",
+    "enunciado": "O Modernismo brasileiro, iniciado com a Semana de Arte Moderna de 1922, caracterizou-se, entre outros aspectos, por:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Retomar o rigor formal do Parnasianismo"
+      },
+      {
+        "letra": "B",
+        "texto": "Valorizar a linguagem coloquial e temas da identidade cultural brasileira"
+      },
+      {
+        "letra": "C",
+        "texto": "Rejeitar qualquer influência das vanguardas europeias"
+      },
+      {
+        "letra": "D",
+        "texto": "Defender o uso exclusivo da métrica clássica"
+      },
+      {
+        "letra": "E",
+        "texto": "Restringir a produção literária à poesia religiosa"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "O Modernismo rompeu com o academicismo, incorporou a linguagem coloquial brasileira e voltou-se para a identidade nacional (indianismo, folclore, cotidiano urbano). Recebeu forte influência das vanguardas europeias (futurismo, cubismo, dadaísmo). As demais alternativas contradizem o movimento."
+  },
+  {
+    "id": "lin-004",
+    "area": "linguagens",
+    "topico": "Interpretação de texto",
+    "enunciado": "Leia o trecho: 'Cada rio parece um chumaço de nuvens presas entre as pedras.' A figura de linguagem predominante nesse trecho é:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Metáfora"
+      },
+      {
+        "letra": "B",
+        "texto": "Hipérbole"
+      },
+      {
+        "letra": "C",
+        "texto": "Ironia"
+      },
+      {
+        "letra": "D",
+        "texto": "Antítese"
+      },
+      {
+        "letra": "E",
+        "texto": "Eufemismo"
+      }
+    ],
+    "gabarito": "A",
+    "explicacao": "A comparação implícita entre 'rio' e 'chumaço de nuvens' (sem o uso de conectivo como 'parece um... assim como') estabelece uma metáfora. Se houvesse conectivo, seria comparação (símile). Hipérbole é exagero; antítese é oposição; ironia inverte o sentido; eufemismo suaviza."
+  },
+  {
+    "id": "lin-005",
+    "area": "linguagens",
+    "topico": "Gramática — Regência verbal",
+    "enunciado": "Segundo a norma-padrão da língua portuguesa, a construção INCORRETA quanto à regência é:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Aspiro ao cargo de diretor."
+      },
+      {
+        "letra": "B",
+        "texto": "Prefiro estudar a trabalhar."
+      },
+      {
+        "letra": "C",
+        "texto": "Assisti o filme no cinema ontem."
+      },
+      {
+        "letra": "D",
+        "texto": "Simpatizo com sua causa."
+      },
+      {
+        "letra": "E",
+        "texto": "Obedeci ao regulamento da escola."
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "No sentido de 'ver, presenciar', 'assistir' é transitivo indireto e exige a preposição 'a': 'Assisti AO filme'. As demais construções estão corretas: aspirar a (desejar), preferir A a B, simpatizar com, obedecer a."
+  },
+  {
+    "id": "lin-006",
+    "area": "linguagens",
+    "topico": "Interpretação — Variedade linguística",
+    "enunciado": "A frase 'Nóis vai lá amanhã' apresenta traços da variedade linguística popular. Do ponto de vista sociolinguístico, essa construção deve ser considerada:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Errada, porque não segue a norma-padrão"
+      },
+      {
+        "letra": "B",
+        "texto": "Válida em seu contexto de uso, sendo diferente — não inferior — à norma-padrão"
+      },
+      {
+        "letra": "C",
+        "texto": "Sinal de deficiência cognitiva do falante"
+      },
+      {
+        "letra": "D",
+        "texto": "Neologismo criado pela internet"
+      },
+      {
+        "letra": "E",
+        "texto": "Estrangeirismo desnecessário"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A sociolinguística reconhece que toda variedade linguística tem sua lógica interna e é adequada ao seu contexto de uso. Julgamentos de 'certo' ou 'errado' são normativos e correspondem a preconceito linguístico. A norma-padrão é uma variedade entre outras, associada a contextos formais."
+  },
+  {
+    "id": "lin-007",
+    "area": "linguagens",
+    "topico": "Interpretação de texto — Coerência",
+    "enunciado": "Leia: 'Chovia muito na cidade. Portanto, as pessoas saíram de casa para curtir o sol.' O conectivo 'portanto' está inadequado nesse trecho porque:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Introduz uma explicação plausível para o fato anterior"
+      },
+      {
+        "letra": "B",
+        "texto": "Estabelece uma relação de causa e consequência coerente"
+      },
+      {
+        "letra": "C",
+        "texto": "Sugere uma conclusão que contradiz logicamente a informação anterior"
+      },
+      {
+        "letra": "D",
+        "texto": "É um conectivo formal demais para o contexto"
+      },
+      {
+        "letra": "E",
+        "texto": "Deveria ser substituído por 'e' para melhorar a fluência"
+      }
+    ],
+    "gabarito": "C",
+    "explicacao": "'Portanto' indica conclusão lógica. Como a segunda oração ('saíram para curtir o sol') contradiz a primeira ('chovia muito'), o conectivo adequado seria adversativo, como 'no entanto' ou 'mesmo assim'. A troca revela quebra de coesão e coerência."
+  },
+  {
+    "id": "lin-008",
+    "area": "linguagens",
+    "topico": "Literatura — Machado de Assis",
+    "enunciado": "A obra de Machado de Assis, especialmente a partir de 'Memórias Póstumas de Brás Cubas' (1881), é reconhecida por:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "texto": "Adotar o idealismo romântico de forma exemplar"
+      },
+      {
+        "letra": "B",
+        "texto": "Utilizar narradores irônicos, defuntos ou não confiáveis para analisar a sociedade"
+      },
+      {
+        "letra": "C",
+        "texto": "Rejeitar a análise psicológica das personagens"
+      },
+      {
+        "letra": "D",
+        "texto": "Escrever exclusivamente em versos e sonetos"
+      },
+      {
+        "letra": "E",
+        "texto": "Restringir-se a temas regionalistas do interior de Minas Gerais"
+      }
+    ],
+    "gabarito": "B",
+    "explicacao": "A fase realista de Machado, iniciada com Brás Cubas, é marcada pelo uso de narradores irônicos (Brás Cubas é defunto-autor), pela análise psicológica cortante das personagens e pela crítica velada à elite carioca do Segundo Reinado. As demais alternativas contradizem sua obra."
+  }
+]
