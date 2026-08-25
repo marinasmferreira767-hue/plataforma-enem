@@ -2,17 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "api/corrigir.py": {
-      "runtime": "@vercel/python@4.3.0",
       "maxDuration": 60,
       "memory": 1024
     },
     "api/gerar.py": {
-      "runtime": "@vercel/python@4.3.0",
       "maxDuration": 60,
       "memory": 1024
     },
     "api/questoes.py": {
-      "runtime": "@vercel/python@4.3.0",
       "maxDuration": 10,
       "memory": 512
     }
