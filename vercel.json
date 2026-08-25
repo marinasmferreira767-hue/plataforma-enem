@@ -1,16 +1,23 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
   "functions": {
-    "api/corrigir.py": { "maxDuration": 60, "memory": 1024 },
-    "api/gerar.py":    { "maxDuration": 60, "memory": 1024 },
-    "api/questoes.py": { "maxDuration": 10, "memory": 512  }
+    "api/corrigir.py": {
+      "runtime": "@vercel/python@4.3.0",
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "api/gerar.py": {
+      "runtime": "@vercel/python@4.3.0",
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "api/questoes.py": {
+      "runtime": "@vercel/python@4.3.0",
+      "maxDuration": 10,
+      "memory": 512
+    }
   },
-
   "rewrites": [
-    { "source": "/plataforma", "destination": "/app.html" },
-    { "source": "/api/corrigir", "destination": "/api/corrigir" },
-    { "source": "/api/gerar", "destination": "/api/gerar" },
-    { "source": "/api/questoes", "destination": "/api/questoes" }
+    { "source": "/plataforma", "destination": "/app.html" }
   ]
 }
