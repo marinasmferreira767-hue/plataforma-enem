@@ -1,18 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/corrigir.py": {
-      "maxDuration": 60,
-      "memory": 1024
-    },
-    "api/gerar.py": {
-      "maxDuration": 60,
-      "memory": 1024
-    },
-    "api/questoes.py": {
-      "maxDuration": 10,
-      "memory": 512
-    }
+    "api/corrigir.py": { "maxDuration": 60, "memory": 1024 },
+    "api/gerar.py":    { "maxDuration": 60, "memory": 1024 },
+    "api/questoes.py": { "maxDuration": 10, "memory": 512  }
   },
   "rewrites": [
     { "source": "/plataforma", "destination": "/app.html" }
