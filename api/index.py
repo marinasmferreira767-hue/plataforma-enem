@@ -1,7 +1,7 @@
 """Plataforma ENEM — app FastAPI único (padrão Vercel 2025+).
 
-A Vercel agora espera um único app Python (FastAPI/Flask) e faz o roteamento
-sozinha. Este arquivo unifica os 3 endpoints antigos em rotas de um mesmo app.
+CORREÇÃO: rotas /, /plataforma e /api/* declaradas ANTES do catch-all
+para que a rota específica seja resolvida primeiro.
 """
 
 from __future__ import annotations
@@ -14,12 +14,10 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 
 # ─── Localizar diretórios do projeto ─────────────────────────────────────────
-# Este arquivo está em api/index.py. A raiz do projeto é dois níveis acima.
 RAIZ = Path(__file__).resolve().parent.parent
 PUBLIC = RAIZ / "public"
 DATA = RAIZ / "data"
@@ -53,7 +51,6 @@ VALORES_ENEM = [0, 40, 80, 120, 160, 200]
 
 # ─── Camada de IA ────────────────────────────────────────────────────────────
 def chamar_ia(system: str, prompt: str, max_tokens: int = 3200) -> str:
-    """Chama Anthropic (prioridade) ou OpenAI."""
     if os.environ.get("ANTHROPIC_API_KEY", "").strip():
         from anthropic import Anthropic
         cliente = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"].strip())
@@ -177,6 +174,18 @@ class EntradaGerar(BaseModel):
 app = FastAPI(title="Plataforma ENEM", docs_url="/api/docs", redoc_url=None)
 
 
+# ═══ ORDEM IMPORTA — rotas específicas ANTES do catch-all ══════════════════
+
+@app.get("/")
+def landing():
+    return FileResponse(PUBLIC / "index.html")
+
+
+@app.get("/plataforma")
+def plataforma():
+    return FileResponse(PUBLIC / "app.html")
+
+
 @app.post("/api/corrigir")
 def corrigir(entrada: EntradaRedacao):
     if len(entrada.texto.split()) < 50:
@@ -278,27 +287,16 @@ def listar_questoes(area: str = "", limite: int = 20, embaralhar: bool = False):
     }
 
 
-# ─── Arquivos estáticos e rotas HTML ─────────────────────────────────────────
-if PUBLIC.exists():
-    # Serve arquivos estáticos (CSS, JS) direto de /public/
-    app.mount("/static", StaticFiles(directory=PUBLIC), name="static")
+# ═══ CATCH-ALL — sempre POR ÚLTIMO (senão engole tudo) ═════════════════════
 
-       @app.get("/")
-    def landing():
-        return FileResponse(PUBLIC / "index.html")
+@app.get("/{arquivo:path}")
+def arquivos_estaticos(arquivo: str):
+    """Serve app.css, app.js, landing.css e outros arquivos de /public/."""
+    if ".." in arquivo or arquivo.startswith("/"):
+        return JSONResponse({"erro": "Caminho inválido"}, status_code=400)
 
-    @app.get("/plataforma")
-    def plataforma():
-        return FileResponse(PUBLIC / "app.html")
+    alvo = PUBLIC / arquivo
+    if alvo.is_file():
+        return FileResponse(alvo)
 
-    @app.get("/{arquivo:path}")
-    def arquivos_publicos(arquivo: str):
-        """Serve app.css, app.js, landing.css, etc. direto da raiz."""
-        # Ignora se a rota é da API (evita conflito com endpoints)
-        if arquivo.startswith("api/"):
-            return JSONResponse({"erro": "Endpoint não encontrado"}, status_code=404)
-        alvo = PUBLIC / arquivo
-        if alvo.is_file():
-            return FileResponse(alvo)
-        # Fallback: se não achar o arquivo, volta pra landing
-        return FileResponse(PUBLIC / "index.html")
+    return JSONResponse({"erro": "Não encontrado"}, status_code=404)
