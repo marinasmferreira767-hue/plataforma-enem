@@ -283,7 +283,7 @@ if PUBLIC.exists():
     # Serve arquivos estáticos (CSS, JS) direto de /public/
     app.mount("/static", StaticFiles(directory=PUBLIC), name="static")
 
-    @app.get("/")
+       @app.get("/")
     def landing():
         return FileResponse(PUBLIC / "index.html")
 
@@ -294,7 +294,11 @@ if PUBLIC.exists():
     @app.get("/{arquivo:path}")
     def arquivos_publicos(arquivo: str):
         """Serve app.css, app.js, landing.css, etc. direto da raiz."""
+        # Ignora se a rota é da API (evita conflito com endpoints)
+        if arquivo.startswith("api/"):
+            return JSONResponse({"erro": "Endpoint não encontrado"}, status_code=404)
         alvo = PUBLIC / arquivo
         if alvo.is_file():
             return FileResponse(alvo)
-        return JSONResponse({"erro": "Não encontrado"}, status_code=404)
+        # Fallback: se não achar o arquivo, volta pra landing
+        return FileResponse(PUBLIC / "index.html")
