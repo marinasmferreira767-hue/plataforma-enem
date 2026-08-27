@@ -181,9 +181,7 @@ def landing():
     return FileResponse(PUBLIC / "index.html")
 
 
-@app.get("/plataforma")
-def plataforma():
-    return FileResponse(PUBLIC / "app.html")
+
 
 
 @app.post("/api/corrigir")
